@@ -1,64 +1,130 @@
-# Manufacturing Quality & Process Analysis (Public Dataset Case Study)
+# Manufacturing Quality & Process Analysis
 
-Portfolio case study analyzing manufacturing equipment/production records to identify failure drivers and propose process + data-quality improvements. No proprietary or internal company data is used. Any “impact” figures (if included) are scenario-based and documented with assumptions.
-
-## Overview
-This project combines:
-- defect/failure pattern analysis (KPIs, Pareto-style breakdowns, driver analysis),
-- process documentation (BPMN current vs. future state),
-- an automated data validation framework to prevent bad records from affecting analytics.
+A portfolio project demonstrating manufacturing quality analysis and predictive maintenance concepts using the AI4I 2020 Predictive Maintenance Dataset.
 
 ## Dataset
-Source: AI4I 2020 Predictive Maintenance dataset (CSV)
-File used: `ai4i2020.csv`
-Records: 10,000
-Columns: 14
-Missing values: 0
 
-Key fields:
-- Identifiers: `UDI`, `Product ID`, `Type` (L/M/H)
-- Process parameters: `Air temperature [K]`, `Process temperature [K]`, `Rotational speed [rpm]`, `Torque [Nm]`, `Tool wear [min]`
-- Targets: `Machine failure` (binary) + failure mode flags (`TWF`, `HDF`, `PWF`, `OSF`, `RNF`)
-Note: failure modes are multi-label in some rows.
+**Source:** [UCI Machine Learning Repository - AI4I 2020 Predictive Maintenance Dataset](https://archive.ics.uci.edu/ml/datasets/AI4I+2020+Predictive+Maintenance+Dataset)
 
-## Objectives
-- Compute quality/reliability KPIs (failure rate overall and by segment).
-- Identify top drivers (station/shift equivalents are modeled here as product/type segments + parameter thresholds).
-- Produce BPMN diagrams for a maintenance/quality workflow:
-  - current-state: monitor → detect → manual checks → action
-  - future-state: validate → score → alert → triage → maintenance → verification
-- Build a reusable Python validation suite and output a validation report.
+**License:** CC BY 4.0 (Creative Commons Attribution 4.0 International)
 
-## Method
-1. Data preparation: type casting, derived features (e.g., temperature delta), sanity checks.
-2. Analysis:
-   - failure rate by product type
-   - parameter threshold analysis (quantiles)
-   - failure modes distribution (multi-label)
-3. Validation framework:
-   - required columns + dtypes
-   - range/logic rules (e.g., non-negative wear/torque, valid timestamps if present)
-   - uniqueness rules (where applicable)
-   - anomaly flags (e.g., sudden failure-rate spikes)
-4. Recommendations:
-   - prioritized actions tied to observed drivers
-   - scenario estimates (optional) with assumptions and limitations
+**Last Updated:** January 2026
 
-## Key findings (reproducible)
-- Overall failure rate: 3.39% (339/10,000)
-- High torque (> 52.6 Nm, top 10%) shows higher failure rate: 18.46% vs 1.72%
-- High tool wear (> 195 min, top 10%) shows higher failure rate: 12.92% vs 2.34%
-- Low rotational speed (< 1364 rpm, bottom 10%) shows higher failure rate: 16.70%
+**Note:** This project uses a public dataset for demonstration purposes. No proprietary data or stakeholder collaboration is implied. All findings are reproducible from the code in this repository.
 
-## Deliverables
-- Notebooks: EDA + driver analysis
-- Exported figures and written summary in `reports/`
-- BPMN diagrams (current vs. future state) in `reports/bpmn/`
-- Data validation module in `src/validation.py` + validation report in `reports/validation_report.md`
-- Docs: requirements, technical spec, data dictionary, assumptions in `docs/`
+## Project Overview
 
-## Tech
-Python (pandas, numpy, matplotlib), BPMN (draw.io/Lucidchart), Markdown
+This project analyzes machine failure patterns in a simulated manufacturing environment. It demonstrates:
 
-## Status
-Completed case study — last updated: 2026-01-06
+- Data validation and quality assurance frameworks
+- KPI computation and reporting
+- Failure mode analysis across product quality types
+- Process parameter threshold analysis
+- Documentation practices (BRD, technical spec, data dictionary)
+
+## Repository Structure
+
+```
+manufacturing-quality-analysis/
+├── README.md
+├── requirements.txt
+├── .gitignore
+├── LICENSE
+├── src/
+│   ├── __init__.py
+│   ├── config.py
+│   ├── io.py
+│   ├── preprocess.py
+│   ├── validation.py
+│   ├── kpi.py
+│   ├── viz.py
+│   └── run_pipeline.py
+├── notebooks/
+│   └── 01_eda_defects.ipynb
+├── docs/
+│   ├── business_requirements.md
+│   ├── technical_spec.md
+│   ├── data_dictionary.md
+│   └── assumptions.md
+├── data/
+│   ├── raw/
+│   │   ├── README.md
+│   │   └── ai4i2020.csv
+│   └── processed/
+│       └── README.md
+└── reports/
+    ├── summary.md (auto-generated)
+    ├── validation_report.md (auto-generated)
+    ├── figures/ (auto-generated PNG charts)
+    └── bpmn/
+        ├── README.md
+        ├── current_state.png
+        └── future_state.png
+```
+
+## Quick Start
+
+### Prerequisites
+
+- Python 3.9+
+- pip
+
+### Installation
+
+```bash
+# Clone the repository
+git clone https://github.com/yourusername/manufacturing-quality-analysis.git
+cd manufacturing-quality-analysis
+
+# Create virtual environment (optional but recommended)
+python -m venv venv
+source venv/bin/activate  # On Windows: venv\Scripts\activate
+
+# Install dependencies
+pip install -r requirements.txt
+```
+
+### Running the Pipeline
+
+```bash
+python -m src.run_pipeline
+```
+
+### Expected Outputs
+
+After running the pipeline, the following files are generated:
+
+- `reports/summary.md` - KPI summary with failure rates and mode counts
+- `reports/validation_report.md` - Data quality validation results
+- `reports/figures/failure_rate_by_type.png` - Bar chart of failure rates by product type
+- `reports/figures/failure_mode_counts.png` - Bar chart of failure mode distribution
+- `reports/figures/temp_delta_vs_failure.png` - Box plot of temperature delta by failure status
+
+## Key Findings
+
+*(Auto-populated after running pipeline - see `reports/summary.md`)*
+
+## Limitations
+
+1. **Public dataset** - Results are based on simulated/synthetic data from UCI ML Repository
+2. **No deployment context** - Analysis is exploratory; no production system integration
+3. **No validated savings** - Cost estimates, if provided, are scenario-based assumptions only
+4. **No stakeholder input** - Thresholds and KPI definitions are analyst-defined, not business-validated
+5. **Multi-label targets** - Some records have multiple failure modes; analysis treats each mode independently
+
+## Documentation
+
+- [Business Requirements Document](docs/business_requirements.md)
+- [Technical Specification](docs/technical_spec.md)
+- [Data Dictionary](docs/data_dictionary.md)
+- [Assumptions](docs/assumptions.md)
+
+## Process Workflow (BPMN)
+
+See `reports/bpmn/README.md` for current-state and future-state process diagrams illustrating the quality/maintenance workflow concept.
+
+## Author
+
+**Hamed Sharafeldin**  
+Data Science & Machine Learning Graduate  
+[LinkedIn](https://linkedin.com/in/hamed-sharafeldin-821273203) | [GitHub](https://github.com/HamedXa)
