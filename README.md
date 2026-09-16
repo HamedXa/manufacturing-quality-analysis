@@ -73,7 +73,7 @@ manufacturing-quality-analysis/
 
 ```bash
 # Clone the repository
-git clone https://github.com/yourusername/manufacturing-quality-analysis.git
+git clone https://github.com/HamedXa/manufacturing-quality-analysis.git
 cd manufacturing-quality-analysis
 
 # Create virtual environment (optional but recommended)
