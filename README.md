@@ -1,29 +1,19 @@
-# Manufacturing Quality & Process Analysis
+# Manufacturing Quality Analysis
 
-A portfolio project demonstrating manufacturing quality analysis and predictive maintenance concepts using the AI4I 2020 Predictive Maintenance Dataset.
+Quality and failure analysis on a manufacturing dataset, with a full Python pipeline behind it. I used the public AI4I 2020 predictive maintenance dataset and treated it like a real engagement: validation, KPIs, failure analysis, and docs.
 
-## Dataset
+## The data
+- **Source:** AI4I 2020 Predictive Maintenance Dataset (UCI Machine Learning Repository)
+- **License:** CC BY 4.0
+- Everything here is reproducible from the code. No company data, no stakeholders, just the public dataset.
 
-**Source:** [UCI Machine Learning Repository - AI4I 2020 Predictive Maintenance Dataset](https://archive.ics.uci.edu/ml/datasets/AI4I+2020+Predictive+Maintenance+Dataset)
+## What the pipeline does
+- Validates the data and reports quality issues
+- Computes KPIs (failure rates, failure mode counts)
+- Breaks down failure modes by product type
+- Checks process parameter thresholds against failures
 
-**License:** CC BY 4.0 (Creative Commons Attribution 4.0 International)
-
-**Last Updated:** January 2026
-
-**Note:** This project uses a public dataset for demonstration purposes. No proprietary data or stakeholder collaboration is implied. All findings are reproducible from the code in this repository.
-
-## Project Overview
-
-This project analyzes machine failure patterns in a simulated manufacturing environment. It demonstrates:
-
-- Data validation and quality assurance frameworks
-- KPI computation and reporting
-- Failure mode analysis across product quality types
-- Process parameter threshold analysis
-- Documentation practices (BRD, technical spec, data dictionary)
-
-## Repository Structure
-
+## Repo layout
 ```
 manufacturing-quality-analysis/
 ├── README.md
@@ -62,69 +52,34 @@ manufacturing-quality-analysis/
         └── future_state.png
 ```
 
-## Quick Start
-
-### Prerequisites
-
-- Python 3.9+
-- pip
-
-### Installation
-
+## Run it
 ```bash
-# Clone the repository
 git clone https://github.com/HamedXa/manufacturing-quality-analysis.git
 cd manufacturing-quality-analysis
-
-# Create virtual environment (optional but recommended)
-python -m venv venv
-source venv/bin/activate  # On Windows: venv\Scripts\activate
-
-# Install dependencies
 pip install -r requirements.txt
-```
-
-### Running the Pipeline
-
-```bash
 python -m src.run_pipeline
 ```
 
-### Expected Outputs
+After it runs, check `reports/summary.md` for the KPI summary and `reports/validation_report.md` for data quality results. Charts land in `reports/figures/`.
 
-After running the pipeline, the following files are generated:
-
-- `reports/summary.md` - KPI summary with failure rates and mode counts
-- `reports/validation_report.md` - Data quality validation results
-- `reports/figures/failure_rate_by_type.png` - Bar chart of failure rates by product type
-- `reports/figures/failure_mode_counts.png` - Bar chart of failure mode distribution
-- `reports/figures/temp_delta_vs_failure.png` - Box plot of temperature delta by failure status
-
-## Key Findings
-
-*(Auto-populated after running pipeline - see `reports/summary.md`)*
+## Key findings
+Populated in `reports/summary.md` after you run the pipeline.
 
 ## Limitations
-
 1. **Public dataset** - Results are based on simulated/synthetic data from UCI ML Repository
 2. **No deployment context** - Analysis is exploratory; no production system integration
 3. **No validated savings** - Cost estimates, if provided, are scenario-based assumptions only
 4. **No stakeholder input** - Thresholds and KPI definitions are analyst-defined, not business-validated
 5. **Multi-label targets** - Some records have multiple failure modes; analysis treats each mode independently
 
-## Documentation
-
-- [Business Requirements Document](docs/business_requirements.md)
+## Docs
+- [Business Requirements](docs/business_requirements.md)
 - [Technical Specification](docs/technical_spec.md)
 - [Data Dictionary](docs/data_dictionary.md)
 - [Assumptions](docs/assumptions.md)
 
-## Process Workflow (BPMN)
-
-See `reports/bpmn/README.md` for current-state and future-state process diagrams illustrating the quality/maintenance workflow concept.
+There's also a BPMN section: `reports/bpmn/README.md` has current-state and future-state diagrams of the quality/maintenance workflow.
 
 ## Author
-
-**Hamed Sharafeldin**  
-Data Science & Machine Learning Graduate  
-[LinkedIn](https://linkedin.com/in/hamed-sharafeldin-821273203) | [GitHub](https://github.com/HamedXa)
+Hamed Sharafeldin — Data Science & ML diploma, RRC Polytech
+[LinkedIn](https://www.linkedin.com/in/hamed-sharafeldin-821273203/) | [GitHub](https://github.com/HamedXa)
